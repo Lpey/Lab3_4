@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mb-5">{{ title }}</h2>
+        {% if posts is not empty %}
+            {% for post in posts %}
+                {{ include('components/post-card.html.twig', {'post': post}) }}
+            {% endfor %}
+            <div class="navigation text-center d-flex justify-content-center">
+                {{ knp_pagination_render(posts) }}
+            </div>
+        {% else %}
+            <div class="text-center home">
+                Постов не найдено!
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

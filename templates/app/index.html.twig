@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-4 last-post pr-4">
+            <div class="last-post__title">
+                Что нового?
+            </div>
+            <div class="last-post__content">
+                {% if posts is not empty %}
+                    {{ posts[0].getAnnotation }}
+                {% else %}
+                    Если мы найдем что-то интересное, то обязательно покажем это здесь ;)
+                {% endif %}
+            </div>
+            <div class="last-post__btn">
+                <li class="nav-item m-0 mt-2">
+                    <a class="nav-link" href="{{ path('post_popular') }}">Просматриваемые</a>
+                </li>
+                <li class="nav-item m-0 mt-2">
+                    <a class="nav-link" href="{{ path('post_discussed') }}">Обсуждаемые</a>
+                </li>
+                <li class="nav-item m-0 mt-2">
+                    <a class="nav-link" href="{{ path('post_index') }}">Посмотреть все</a>
+                </li>
+            </div>
+        </div>
+        <div class="col-8">
+            {% if posts is not empty %}
+                {% for post in posts %}
+                    {{ include('components/post-card.html.twig', {'post': post}) }}
+                {% endfor %}
+            {% else %}
+                <div class="text-center home">
+                    Постов не найдено!
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
